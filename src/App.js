@@ -24,19 +24,19 @@ function App() {
       .filter((item) => !item.expense)
       .map((transaction) => Number(transaction.amount));
 
-    const expense = amountExpense.reduce((acc, cur) => acc - cur, 0).toFixed(2);
     const income = amountIncome.reduce((acc, cur) => acc + cur, 0).toFixed(2);
+    const expense = amountExpense.reduce((acc, cur) => acc + cur, 0).toFixed(2);
 
     const total = Math.abs(income - expense).toFixed(2)
 
-    setExpense(`R$ ${expense}`)
     setIncome(`R$ ${income}`)
+    setExpense(`R$ ${expense}`)
     setTotal(`${Number(income) < Number(expense) ? "-" : ""}R$ ${total}`)
 
   }, [transactionslist])
 
-  const handleAdd = (transaction) => {
-    const newArrayTransactions = [...transactionslist, transaction];
+  const handleAdd = (transactions) => {
+    const newArrayTransactions = [...transactionslist, transactions];
 
     setTransactionsList(newArrayTransactions);
 
@@ -47,7 +47,7 @@ function App() {
     <div className="App">
       <Header />
       <Resume income={income} expense={expense} total={total} />
-      <Form handleAdd={handleAdd} />
+      <Form handleAdd={handleAdd} transactionslist={transactionslist} setTransactionsList={setTransactionsList} />
     </div>
   );
 }

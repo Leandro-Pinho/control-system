@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import './styleForm.css'
+import Grid from '../grid/Grid';
 
-const Form = ({ handleAdd }) => {
+const Form = ({ handleAdd, transactionslist, setTransactionsList }) => {
     const [desc, setDesc] = useState("");;
     const [amount, setAmount] = useState("");
     const [isExpense, setExpense] = useState(false)
@@ -32,23 +33,30 @@ const Form = ({ handleAdd }) => {
     };
 
     return (
-        <div className='containerForm'>
-            <div className='inputContent'>
-                <label>Descrição</label>
-                <input value={desc} onChange={(e) => setDesc(e.target.value)} />
+        <>
+            <div className='containerForm'>
+                <div className='inputContent'>
+                    <label>Descrição</label>
+                    <input value={desc} onChange={(e) => setDesc(e.target.value)} />
+                </div>
+                <div className='inputContent'>
+                    <label>Valor</label>
+                    <input
+                        value={amount}
+                        type='number'
+                        onChange={(e) => setAmount(e.target.value)}
+                    />
+                </div>
+                <div className='RadioGroup'>
+                    <input type='radio' id='rIncome' defaultChecked name='group1' onChange={() => setExpense(!isExpense)} />
+                    <label htmlFor='rIncome'>Entrada</label>
+                    <input type='radio' id='rExpenses' name='group1' onChange={() => setExpense(!isExpense)} />
+                    <label htmlFor='rExpenses'>Saida</label>
+                </div>
+                <button onClick={handleSave}>Adicionar</button>
             </div>
-            <div className='inputContent'>
-                <label>Valor</label>
-                <input value={amount} type='number' onChange={(e) => setAmount(e.target.value)} />
-            </div>
-            <div className='RadioGroup'>
-                <input type='radio' id='rIncome' defaultChecked name='group1' onChange={() => setExpense(!isExpense)} />
-                <label htmlFor='rIncome'>Entrada</label>
-                <input type='radio' id='rExpenses' defaultChecked name='group1' onChange={() => setExpense(!isExpense)} />
-                <label htmlFor='rExpenses'>Saida</label>
-            </div>
-            <button onClick={handleSave}>Adicionar</button>
-        </div>
+            <Grid itens={transactionslist} setItens={setTransactionsList} />
+        </>
     )
 }
 

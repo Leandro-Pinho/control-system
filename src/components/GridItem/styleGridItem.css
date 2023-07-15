@@ -1,0 +1,9 @@
+td {
+    padding-top: 15px;
+    text-align: start;
+    word-break: break-all;
+}
+svg {
+    width: 18px;
+    height: 18px;
+}
